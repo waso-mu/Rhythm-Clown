@@ -1,0 +1,196 @@
+[gd_scene load_steps=20 format=3 uid="uid://cr4eagdg0772u"]
+
+[ext_resource type="Script" path="res://conductor.gd" id="1_br11y"]
+[ext_resource type="AudioStream" uid="uid://bwx862w8wpp46" path="res://crowd-laugh_1.wav" id="2_exrle"]
+[ext_resource type="AudioStream" uid="uid://dy6ytuf0yebrx" path="res://nobonoko - Traincart.ogg" id="3_4lkuw"]
+[ext_resource type="AudioStream" uid="uid://02sxyyse1c1w" path="res://triangle-open_03.wav" id="4_wkie1"]
+[ext_resource type="AudioStream" uid="uid://dvib2l0sxcec1" path="res://drumstick-hit_01.wav" id="5_5tuyx"]
+[ext_resource type="AudioStream" uid="uid://c80pc36qc2xwb" path="res://sidestick-low.wav" id="6_wnwyr"]
+[ext_resource type="AudioStream" uid="uid://dt440w4nw60md" path="res://cough_2.wav" id="7_ypbwu"]
+[ext_resource type="AudioStream" uid="uid://beqsiwbkyebi7" path="res://acoustic-drum-kick.wav" id="8_0vfho"]
+[ext_resource type="Texture2D" uid="uid://bqqpfw8qxxgu4" path="res://audience1.png" id="8_bttj5"]
+[ext_resource type="Script" path="res://Audience.gd" id="9_pltyv"]
+[ext_resource type="Texture2D" uid="uid://ndl17r8vkphj" path="res://audience2.png" id="10_j5wvj"]
+[ext_resource type="Texture2D" uid="uid://dtfmxi8ebfjvk" path="res://spotlight.png" id="11_u3s6g"]
+[ext_resource type="Script" path="res://spotlight.gd" id="12_hywml"]
+[ext_resource type="Texture2D" uid="uid://baxnkhjoxgnpl" path="res://player.png" id="13_vnfyp"]
+[ext_resource type="Texture2D" uid="uid://dixkk54isb2h2" path="res://tick.png" id="14_1jxcm"]
+[ext_resource type="Texture2D" uid="uid://l7dqv03bm0ka" path="res://frown.png" id="15_u6c25"]
+[ext_resource type="Texture2D" uid="uid://dtl0urs3u3ou6" path="res://clown.png" id="16_y0brp"]
+[ext_resource type="Script" path="res://Traincart Chart.gd" id="17_isl0o"]
+
+[sub_resource type="Theme" id="Theme_wqo18"]
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 8
+Label/font_sizes/font_size = 32
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Conductor" type="Node" parent="." node_paths=PackedStringArray("leveldata", "clown", "you", "Subtitles", "SongTitle", "txtscore", "finalscore", "frown", "tick")]
+script = ExtResource("1_br11y")
+bpm = 150.0
+crotchetsperbar = 8
+songlengthbeats = 271
+leveldata = NodePath("../LevelData")
+perfectscore = 91
+clown = NodePath("../Clown")
+you = NodePath("../Player")
+Subtitles = NodePath("../Subtitles")
+SongTitle = NodePath("../Song Title")
+txtscore = NodePath("../Score")
+finalscore = NodePath("../FinalScore")
+frown = NodePath("../Player/Frown")
+tick = NodePath("../Player/Tick")
+
+[node name="Laughter" type="AudioStreamPlayer2D" parent="Conductor"]
+stream = ExtResource("2_exrle")
+volume_db = 1.0
+
+[node name="Song" type="AudioStreamPlayer2D" parent="Conductor"]
+stream = ExtResource("3_4lkuw")
+bus = &"Song"
+
+[node name="Triangle" type="AudioStreamPlayer2D" parent="Conductor"]
+stream = ExtResource("4_wkie1")
+volume_db = 2.0
+bus = &"Cues"
+
+[node name="Drumstick" type="AudioStreamPlayer2D" parent="Conductor"]
+stream = ExtResource("5_5tuyx")
+volume_db = 5.0
+panning_strength = 3.0
+bus = &"Pulses"
+
+[node name="Sidestick" type="AudioStreamPlayer2D" parent="Conductor"]
+stream = ExtResource("6_wnwyr")
+volume_db = 5.0
+panning_strength = 0.0
+bus = &"Pulses"
+
+[node name="Cough" type="AudioStreamPlayer2D" parent="Conductor"]
+stream = ExtResource("7_ypbwu")
+volume_db = 5.0
+bus = &"Cues"
+
+[node name="Kick" type="AudioStreamPlayer2D" parent="Conductor"]
+stream = ExtResource("8_0vfho")
+volume_db = 1.0
+panning_strength = 0.0
+bus = &"Cues"
+
+[node name="Audience1" type="Sprite2D" parent="." node_paths=PackedStringArray("conductor")]
+position = Vector2(0, 80)
+texture = ExtResource("8_bttj5")
+offset = Vector2(427, 240)
+script = ExtResource("9_pltyv")
+magnitude = 10.0
+conductor = NodePath("../Conductor")
+
+[node name="Audience2" type="Sprite2D" parent="." node_paths=PackedStringArray("conductor")]
+z_index = -1
+position = Vector2(0, 60)
+texture = ExtResource("10_j5wvj")
+offset = Vector2(427, 240)
+script = ExtResource("9_pltyv")
+magnitude = 7.5
+conductor = NodePath("../Conductor")
+
+[node name="Spotlight" type="Sprite2D" parent="." node_paths=PackedStringArray("conductor")]
+modulate = Color(1, 1, 1, 0.588235)
+z_index = -3
+position = Vector2(0, -60)
+texture = ExtResource("11_u3s6g")
+offset = Vector2(427, 240)
+flip_h = true
+script = ExtResource("12_hywml")
+conductor = NodePath("../Conductor")
+
+[node name="Player" type="Sprite2D" parent="." node_paths=PackedStringArray("conductor")]
+z_index = -2
+position = Vector2(650, 230)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("13_vnfyp")
+script = ExtResource("9_pltyv")
+magnitude = 5.0
+conductor = NodePath("../Conductor")
+
+[node name="Tick" type="CPUParticles2D" parent="Player"]
+z_index = -1
+emitting = false
+amount = 1
+one_shot = true
+speed_scale = 1.5
+texture = ExtResource("14_1jxcm")
+direction = Vector2(-1, -1)
+spread = 0.0
+initial_velocity_min = 700.0
+initial_velocity_max = 700.0
+
+[node name="Frown" type="CPUParticles2D" parent="Player"]
+z_index = -1
+emitting = false
+amount = 1
+one_shot = true
+speed_scale = 1.5
+texture = ExtResource("15_u6c25")
+direction = Vector2(-1, -1)
+spread = 0.0
+initial_velocity_min = 700.0
+initial_velocity_max = 700.0
+
+[node name="Clown" type="Sprite2D" parent="." node_paths=PackedStringArray("conductor")]
+z_index = -2
+position = Vector2(200, 230)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("16_y0brp")
+script = ExtResource("9_pltyv")
+magnitude = 5.0
+conductor = NodePath("../Conductor")
+
+[node name="Subtitles" type="Label" parent="."]
+z_index = 1
+offset_top = 416.0
+offset_right = 854.0
+offset_bottom = 479.0
+theme = SubResource("Theme_wqo18")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Song Title" type="Label" parent="."]
+z_index = 1
+offset_left = 14.0
+offset_top = -1.0
+offset_right = 868.0
+offset_bottom = 62.0
+theme = SubResource("Theme_wqo18")
+text = " ♪ nobonoko - Traincart"
+vertical_alignment = 1
+
+[node name="Score" type="Label" parent="."]
+z_index = 1
+offset_left = -13.0
+offset_right = 841.0
+offset_bottom = 63.0
+theme = SubResource("Theme_wqo18")
+text = "score: 0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="FinalScore" type="Label" parent="."]
+visible = false
+z_index = 1
+offset_left = 2.0
+offset_top = -1.0
+offset_right = 856.0
+offset_bottom = 481.0
+theme = SubResource("Theme_wqo18")
+theme_override_font_sizes/font_size = 64
+text = "Score:
+0
+Try Again..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LevelData" type="Node2D" parent="."]
+script = ExtResource("17_isl0o")

@@ -1,0 +1,105 @@
+[gd_scene load_steps=6 format=3 uid="uid://rju6ygwofvlh"]
+
+[ext_resource type="Texture2D" uid="uid://dtl0urs3u3ou6" path="res://clown.png" id="1_2quao"]
+[ext_resource type="Script" path="res://title screen.gd" id="1_586mi"]
+[ext_resource type="Texture2D" uid="uid://baxnkhjoxgnpl" path="res://player.png" id="2_8xhaa"]
+[ext_resource type="Texture2D" uid="uid://dtfmxi8ebfjvk" path="res://spotlight.png" id="3_b40v6"]
+
+[sub_resource type="Theme" id="Theme_g4nhc"]
+default_font_size = 42
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 8
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_586mi")
+
+[node name="MainEvent" type="Button" parent="."]
+layout_mode = 0
+offset_left = 310.0
+offset_top = 300.0
+offset_right = 550.0
+offset_bottom = 364.0
+text = "the main event"
+
+[node name="Tutorial" type="Button" parent="."]
+layout_mode = 0
+offset_left = 310.0
+offset_top = 200.0
+offset_right = 550.0
+offset_bottom = 264.0
+text = "how to play & credits"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 21.0
+offset_right = 855.0
+offset_bottom = 140.0
+theme = SubResource("Theme_g4nhc")
+text = "rhythm clown"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Clown" type="Sprite2D" parent="."]
+position = Vector2(163, 239)
+texture = ExtResource("1_2quao")
+
+[node name="You" type="Sprite2D" parent="."]
+position = Vector2(706, 255)
+texture = ExtResource("2_8xhaa")
+
+[node name="Spotlight" type="Sprite2D" parent="."]
+z_index = -4
+position = Vector2(196, 244)
+texture = ExtResource("3_b40v6")
+
+[node name="Help" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Help"]
+layout_mode = 0
+offset_left = 58.0
+offset_top = 52.0
+offset_right = 798.0
+offset_bottom = 420.0
+
+[node name="Label" type="Label" parent="Help"]
+z_index = 3
+layout_mode = 0
+offset_left = 63.0
+offset_top = 69.0
+offset_right = 793.0
+offset_bottom = 378.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 16
+text = "how to play!
+the clown will set up a joke to a rhythm, then you will hear a triangle
+one beat after the triangle, play back the same rhythm as the clown with the space bar
+
+credits!
+art programming and concept by me (waso mu!)
+made in 3 days for GGJ 2024
+with sounds and music from...
+nobonoko > music
+jesterdyne > sidestick sfx
+various other sounds from freesound.org"
+horizontal_alignment = 1
+
+[node name="Close" type="Button" parent="Help"]
+z_index = 4
+layout_mode = 0
+offset_left = 378.0
+offset_top = 382.0
+offset_right = 475.0
+offset_bottom = 413.0
+text = "close menu"
