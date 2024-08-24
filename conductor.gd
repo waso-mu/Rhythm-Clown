@@ -104,9 +104,9 @@ func _process(_delta):
 			comment = "Try Again..."
 		elif score<=60:
 			comment = "OK"
-		elif score<=perfectscore:
+		elif score<perfectscore:
 			comment = "Superb!"
-		elif score>=perfectscore:
+		else:
 			comment="Perfect!"
 		
 		finalscore.text = 'Score:\n'+str(score)+"\n"+comment
